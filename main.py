@@ -97,7 +97,7 @@ def average_qualisys_data(data_list):
 
 if __name__ == "__main__":
     print('Get Qualisys Position Data')
-    get_Qualisys_Position('Name_Body', 0.03)
+    position_qualisys_record = get_Qualisys_Position('Name_Body', 0.03)
 
     # Average positioning data recorded with Qualisys in given timeframe
     position_qualisys = average_qualisys_data(position_qualisys_record)

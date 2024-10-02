@@ -7,7 +7,7 @@ import qtm
 
 async def main(wanted_body, measuring_time):
     # Connect to qtm
-    connection = await qtm.connect("192.108.0.13")
+    connection = await qtm.connect("192.108......")  #ENTER IP ADDRESS OF QUALISYS SERVER
 
     # Connection failed?
     if connection is None:
@@ -15,7 +15,7 @@ async def main(wanted_body, measuring_time):
         return
 
     # Take control of qtm, context manager will automatically release control after scope end
-    async with qtm.TakeControl(connection, "Techtile229"):
+    async with qtm.TakeControl(connection, "PW"):  #ENTER PW
         await connection.new()
 
     # Get 6dof settings from qtm

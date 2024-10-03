@@ -5,6 +5,19 @@ import samplerate
 import asyncio
 import qtm
 
+def check_NaN(position, rotation):
+    return np.isnan(float(position[0]))
+
+def create_body_index(xml_string):
+    """ Extract a name to index dictionary from 6dof settings xml """
+    xml = ET.fromstring(xml_string)
+
+    body_to_index = {}
+    for index, body in enumerate(xml.findall("*/Body/Name")):
+        body_to_index[body.text.strip()] = index
+
+    return body_to_index
+
 async def main(wanted_body, measuring_time):
     # Connect to qtm
     connection = await qtm.connect("192.108......")  #ENTER IP ADDRESS OF QUALISYS SERVER
@@ -97,7 +110,8 @@ def average_qualisys_data(data_list):
 
 if __name__ == "__main__":
     print('Get Qualisys Position Data')
-    position_qualisys_record = get_Qualisys_Position('Name_Body', 0.03)
+    get_Qualisys_Position('Name_Body', 0.03)
+    position_qualisys_record = np.load('temp_data_qualisys\\temp_data_qualisys.npy', allow_pickle=True)
 
     # Average positioning data recorded with Qualisys in given timeframe
     position_qualisys = average_qualisys_data(position_qualisys_record)

@@ -3,7 +3,7 @@ from datetime import datetime, timedelta
 import xml.etree.ElementTree as ET
 import samplerate
 import asyncio
-import qtm
+import qtm_rt
 
 def check_NaN(position, rotation):
     return np.isnan(float(position[0]))
@@ -20,7 +20,7 @@ def create_body_index(xml_string):
 
 async def main(wanted_body, measuring_time):
     # Connect to qtm
-    connection = await qtm.connect("192.108......")  #ENTER IP ADDRESS OF QUALISYS SERVER
+    connection = await qtm_rt.connect("192.108......")  #ENTER IP ADDRESS OF QUALISYS SERVER
 
     # Connection failed?
     if connection is None:
@@ -28,7 +28,7 @@ async def main(wanted_body, measuring_time):
         return
 
     # Take control of qtm, context manager will automatically release control after scope end
-    async with qtm.TakeControl(connection, "PW"):  #ENTER PW
+    async with qtm_rt.TakeControl(connection, "PW"):  #ENTER PW
         await connection.new()
 
     # Get 6dof settings from qtm

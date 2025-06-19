@@ -66,11 +66,12 @@ async def main(wanted_body, measuring_time):
     # Start streaming frames
     await connection.stream_frames(components=["6d"], on_packet=on_packet)
 
-    # Wait asynchronously some time
-    await asyncio.sleep(measuring_time)
-
-    # Stop streaming
-    await connection.stream_frames_stop()
+    try:
+        await asyncio.sleep(measuring_time)
+    finally:
+        await connection.stream_frames_stop()
+        if connection is not None:
+            connection.disconnect()
 
 
 def get_Qualisys_Position(wanted_body, measuring_time):
